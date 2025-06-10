@@ -187,13 +187,14 @@ GET /api/prices?brandId=1&productId=35455&applicationDate=2020-06-14T10:00:00
 **Response Example:**
 ```json
 {
-    "brandId": 1,
-    "productId": 35455,
-    "priceList": 1,
-    "startDate": "2020-06-14T00:00:00",
-    "endDate": "2020-12-31T23:59:59",
-    "price": 35.50,
-    "currency": "EUR"
+	"brandId": 1,
+	"startDate": "2020-06-15T00:00:00",
+	"endDate": "2020-06-15T11:00:00",
+	"productId": 35455,
+	"priority": 1,
+	"price": 30.50,
+	"currency": "EUR",
+	"priceList": 3
 }
 ```
 
