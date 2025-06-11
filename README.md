@@ -1,10 +1,10 @@
-# Price API
+# Commerce API
 
-REST API for price queries based on hexagonal architecture with Spring Boot and reactive programming.
+REST API for price queries based on hexagonal architecture with Spring Boot.
 
 ## 📋 Description
 
-This application allows querying product prices by applying filters for brand, product, and application date. It's designed following hexagonal architecture principles (ports & adapters) and uses reactive programming with Project Reactor.
+This application allows querying product prices by applying filters for brand, product, and application date. It's designed following hexagonal architecture principles (ports & adapters).
 
 ## 🏗️ Architecture
 
@@ -72,26 +72,26 @@ src/main/java/es/sujes71/api/price/
 │           │   └── PriceDao.java
 │           └── entity/
 │               └── PriceEntity.java
-├── rest/
-│   └── adapter/                        # REST layer adapters
-│       ├── PriceController.java
-│       └── PriceFilterAdapter.java
-└── shared/
-    └── domain/
-        ├── model/
-        │   └── Message.java            # Event messaging
-        └── ports/
-            ├── inbound/
-            │   └── UseCase.java
-            └── outbound/
-                └── OutboundPort.java   # Event system
+└── rest/
+    └── adapter/                        # REST layer adapters
+        ├── PriceController.java
+        └── PriceFilterAdapter.java
+
+src/main/java/es/sujes71/shared/
+└── domain/
+    ├── model/
+    │   └── Message.java                # Event messaging
+    └── ports/
+        ├── inbound/
+        │   └── UseCase.java
+        └── outbound/
+            └── OutboundPort.java       # Event system
 ```
 
 ## 🚀 Technologies Used
 
 - **Java 17+**
 - **Spring Boot 3.x**
-- **Spring WebFlux** - Reactive programming
 - **Project Reactor** - Reactive streams
 - **H2 Database** - In-memory database
 - **JUnit 5** - Testing
@@ -127,13 +127,14 @@ CREATE TABLE PRICES (
 
 // Price Response (Output)
 {
-    "brandId": 1,
-    "productId": 35455,
-    "priceList": 1,
-    "startDate": "2020-06-14T00:00:00",
-    "endDate": "2020-12-31T23:59:59",
-    "price": 35.50,
-    "currency": "EUR"
+	"brandId": 1,
+	"startDate": "2020-06-15T00:00:00",
+	"endDate": "2020-06-15T11:00:00",
+	"productId": 35455,
+	"priority": 1,
+	"price": 30.50,
+	"currency": "EUR",
+	"priceList": 3
 }
 ```
 
@@ -147,7 +148,7 @@ CREATE TABLE PRICES (
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd price-api
+cd Commerce
 
 # Compile the project
 mvn clean compile
@@ -156,7 +157,7 @@ mvn clean compile
 mvn test
 
 # Run the application
-mvn spring-boot:run
+mvn -pl service spring-boot:run
 ```
 
 ### Database
@@ -171,7 +172,7 @@ The application uses H2 in-memory database that initializes automatically with t
 
 ### Query Price
 ```http
-GET /api/prices?brandId={brandId}&productId={productId}&applicationDate={date}
+GET /commerce/prices?brandId={brandId}&productId={productId}&applicationDate={date}
 ```
 
 **Parameters:**
@@ -181,7 +182,7 @@ GET /api/prices?brandId={brandId}&productId={productId}&applicationDate={date}
 
 **Request Example:**
 ```http
-GET /api/prices?brandId=1&productId=35455&applicationDate=2020-06-14T10:00:00
+GET /commerce/prices?brandId=1&productId=35455&applicationDate=2020-06-14T10:00:00
 ```
 
 **Response Example:**
@@ -242,7 +243,7 @@ sequenceDiagram
     participant Repository
     participant Database
 
-    Client->>PriceController: GET /api/prices
+    Client->>PriceController: GET /commerce/prices
     PriceController->>UseCase: execute(PriceFilter)
     UseCase->>Port: getPriceByProperties(filter)
     Port->>Repository: findByProperties(filter)
@@ -296,7 +297,7 @@ sequenceDiagram
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
