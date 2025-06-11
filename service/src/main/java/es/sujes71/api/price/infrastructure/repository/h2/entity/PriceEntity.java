@@ -56,19 +56,16 @@ public class PriceEntity {
   @NotNull
   private String currency;
 
-  public static Price toDomain(PriceEntity entity) {
-    if (entity == null) {
-      return null;
-    }
+  public Price toDomain() {
     return Price.builder()
-        .brandId(entity.getBrandId())
-        .startDate(entity.getStartDate())
-        .endDate(entity.getEndDate())
-        .priceList(entity.getPriceList())
-        .productId(entity.getProductId())
-        .priority(entity.getPriority())
-        .price(entity.getPrice())
-        .currency(entity.getCurrency())
+        .brandId(this.brandId)
+        .startDate(this.startDate)
+        .endDate(this.endDate)
+        .priceList(this.priceList)
+        .productId(this.productId)
+        .priority(this.priority)
+        .price(this.price)
+        .currency(this.currency)
         .build();
   }
 }

@@ -2,11 +2,13 @@ package es.sujes71.api.price.domain.core;
 
 import es.sujes71.api.price.domain.model.Price;
 import es.sujes71.api.price.domain.model.PriceFilter;
+import es.sujes71.api.price.domain.model.exceptions.PriceNotFoundException;
 import es.sujes71.api.price.domain.ports.inbound.GetPriceByPropertiesUseCase;
 import es.sujes71.api.price.domain.ports.outbound.PricePersistencePort;
 import es.sujes71.api.price.infrastructure.repository.h2.entity.PriceEntity;
+import java.util.Comparator;
+import java.util.List;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 @Service
 public class GetPriceByPropertiesUseCaseImpl implements GetPriceByPropertiesUseCase {
@@ -18,9 +20,17 @@ public class GetPriceByPropertiesUseCaseImpl implements GetPriceByPropertiesUseC
   }
 
   @Override
-  public Mono<Price> execute(PriceFilter input) {
-    return pricePersistencePort.getPriceByProperties(input)
-        .map(PriceEntity::toDomain)
-        .switchIfEmpty(Mono.error(new RuntimeException("Price not found for the given properties.")));
+  public Price execute(PriceFilter input) {
+    List<PriceEntity> priceEntities = pricePersistencePort.getAllPricesByProperties(input);
+
+    if (priceEntities.isEmpty()) {
+      throw new PriceNotFoundException("No prices found for the given properties.");
+    }
+
+    PriceEntity selectedPrice = priceEntities.stream()
+        .max(Comparator.comparingInt(PriceEntity::getPriority))
+        .orElseThrow();
+
+    return selectedPrice.toDomain();
   }
 }

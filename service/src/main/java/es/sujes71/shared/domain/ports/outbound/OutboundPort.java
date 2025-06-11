@@ -1,23 +1,22 @@
 package es.sujes71.shared.domain.ports.outbound;
 
 import es.sujes71.shared.domain.model.Message;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
 
 @Component
 public class OutboundPort {
 
-  private static final Map<String, EventHandler<?, ?>> eventBus = new ConcurrentHashMap<>();
+  private static final Map<String, EventHandler<?, ?>> eventBus = new HashMap<>();
 
   private OutboundPort() {
   }
 
-  public static <B, R> Mono<R> requestEvent(Message<B> event) {
+  public static <B, R> R requestEvent(Message<B> event) {
     EventHandler<B, R> handler = resolve(event.address());
     if (handler == null) {
-      return Mono.error(new IllegalArgumentException("No handler found for address: " + event.address()));
+      throw new IllegalArgumentException("No handler found for address: " + event.address());
     }
     return handler.handle(event.body());
   }
@@ -33,6 +32,6 @@ public class OutboundPort {
 
   @FunctionalInterface
   public interface EventHandler<B, R> {
-    Mono<R> handle(B body);
+    R handle(B body);
   }
 }

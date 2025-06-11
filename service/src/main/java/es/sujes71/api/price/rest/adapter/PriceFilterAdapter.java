@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 public class PriceFilterAdapter {
 
-  public static PriceFilter adapt(Integer brandId, Integer productId, LocalDateTime applicationDate) {
+  public static PriceFilter adapt(String brandId, String productId, String applicationDate) {
     return PriceFilter.builder()
-        .brandId(brandId)
-        .productId(productId)
-        .applicationDate(applicationDate)
+        .brandId(Integer.parseInt(brandId.trim()))
+        .productId(Integer.parseInt(productId.trim()))
+        .applicationDate( LocalDateTime.parse(applicationDate.trim()))
         .build();
   }
 }
