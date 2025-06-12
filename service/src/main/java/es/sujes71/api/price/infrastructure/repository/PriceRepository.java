@@ -41,11 +41,9 @@ public class PriceRepository {
       if (!priceEntities.isEmpty()) {
         log.info("Found {} prices for filter: {}", priceEntities.size(), filter);
 
-        List<Price> prices = priceEntities.stream()
+        return priceEntities.stream()
             .map(PriceEntity::toDomain)
             .collect(Collectors.toList());
-
-        return prices;
       }
 
       log.info("No prices found for filter: {}", filter);
