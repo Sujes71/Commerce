@@ -30,17 +30,18 @@ This application allows querying product prices by applying filters for brand, p
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
 │  │   Models    │  │ Use Cases   │  │    Ports    │         │
 │  │   (Price,   │  │(Business    │  │ (Inbound &  │         │
-│  │ PriceFilter)│  │  Logic)     │  │  Outbound)  │         │
+│  │ PriceFilter,│  │  Logic)     │  │  Outbound)  │         │
+│  │Exceptions)  │  │             │  │             │         │
 │  └─────────────┘  └─────────────┘  └─────────────┘         │
 └───────────┬─────────────────────────────────────────────────┘
             │
 ┌───────────▼─────────────────────────────────────────────────┐
 │                   INFRASTRUCTURE                            │
-│  ┌─────────────────┐  ┌─────────────────┐                 │
-│  │   Repositories  │  │   Exceptions    │                 │
-│  │   (H2 DB +      │  │(PriceNotFound   │                 │
-│  │   Persistence)  │  │   Exception)    │                 │
-│  └─────────────────┘  └─────────────────┘                 │
+│  ┌─────────────────┐                                       │
+│  │   Repositories  │                                       │
+│  │   (H2 DB +      │                                       │
+│  │   Persistence)  │                                       │
+│  └─────────────────┘                                       │
 └─────────────────────────────────────────────────────────────┘
             ▲
 ┌───────────┴────────────────────────────────────────────────────────────┐
@@ -51,7 +52,6 @@ This application allows querying product prices by applying filters for brand, p
 │  │ErrorResponse│  │OutboundPort)│  │  Handler)   │   │             │   │
 │  └─────────────┘  └─────────────┘  └─────────────┘   └─────────────┘   │
 └────────────────────────────────────────────────────────────────────────┘
-
 ```
 
 ### Project Structure
@@ -59,9 +59,11 @@ This application allows querying product prices by applying filters for brand, p
 ```
 src/main/java/es/sujes71/api/price/
 ├── domain/
-│   ├── core/                           # Use case implementations
+│   ├── core/
 │   │   └── GetPriceByPropertiesUseCaseImpl.java
-│   ├── model/                          # Domain models
+│   ├── model/                              # Domain models
+│   │   ├── exceptions/                     # EXCEPCIONES DE DOMINIO
+│   │   │   └── PriceNotFoundException.java # Regla de negocio
 │   │   ├── Price.java
 │   │   └── PriceFilter.java
 │   └── ports/
@@ -70,8 +72,6 @@ src/main/java/es/sujes71/api/price/
 │       └── outbound/                   # Output ports
 │           └── PricePersistencePort.java
 ├── infrastructure/
-│   ├── exceptions/                     # Infrastructure exceptions
-│   │   └── PriceNotFoundException.java
 │   └── repository/                     # Persistence implementation
 │       ├── PriceRepository.java
 │       └── h2/
