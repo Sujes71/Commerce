@@ -39,10 +39,9 @@ public class PriceRepository {
       if (!priceList.isEmpty()) {
         log.info("Found {} prices for filter: {}", priceList.size(), filter);
         return priceList;
-      } else {
-        log.info("No prices found for filter: {}", filter);
-        return List.of();
       }
+      log.info("No prices found for filter: {}", filter);
+      return List.of();
     } catch (Exception error) {
       log.error("Error finding prices: {}", error.getMessage());
       throw error;
