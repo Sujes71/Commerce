@@ -98,7 +98,6 @@ src/main/java/es/sujes71/shared/
 │           └── OutboundPort.java       # Event system
 └── infrastructure/
 |    └── exceptions/
-│       └── outbound/
 │       └── GlobalExceptionHandler.java
 └── Rest
     └── Routing.java
