@@ -10,7 +10,7 @@ public class PriceFilterAdapter {
     return PriceFilter.builder()
         .brandId(Integer.parseInt(brandId.trim()))
         .productId(Integer.parseInt(productId.trim()))
-        .applicationDate( LocalDateTime.parse(applicationDate.trim()))
+        .applicationDate(LocalDateTime.parse(applicationDate.trim()))
         .build();
   }
 }
