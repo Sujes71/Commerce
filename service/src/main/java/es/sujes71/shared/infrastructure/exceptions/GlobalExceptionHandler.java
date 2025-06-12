@@ -1,4 +1,4 @@
-package es.sujes71.shared.rest.exceptions;
+package es.sujes71.shared.infrastructure.exceptions;
 
 import es.sujes71.api.price.infrastructure.exceptions.PriceNotFoundException;
 import es.sujes71.shared.domain.model.ErrorResponse;
