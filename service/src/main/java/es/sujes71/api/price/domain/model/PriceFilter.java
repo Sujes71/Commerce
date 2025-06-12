@@ -7,10 +7,8 @@ import lombok.Data;
 @Data
 @Builder
 public class PriceFilter {
-
   private Integer brandId;
-
   private Integer productId;
-
   private LocalDateTime applicationDate;
+
 }
