@@ -1,6 +1,6 @@
 package es.sujes71.shared.infrastructure.exceptions;
 
-import es.sujes71.api.price.infrastructure.exceptions.PriceNotFoundException;
+import es.sujes71.api.price.domain.model.exceptions.PriceNotFoundException;
 import es.sujes71.shared.domain.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
