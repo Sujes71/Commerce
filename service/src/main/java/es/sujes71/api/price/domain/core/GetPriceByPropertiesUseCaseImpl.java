@@ -24,7 +24,7 @@ public class GetPriceByPropertiesUseCaseImpl implements GetPriceByPropertiesUseC
     List<PriceEntity> priceEntities = pricePersistencePort.getAllPricesByProperties(input);
 
     if (priceEntities.isEmpty()) {
-      throw new PriceNotFoundException("No prices found for the given properties.");
+      throw new PriceNotFoundException();
     }
 
     PriceEntity selectedPrice = priceEntities.stream()
