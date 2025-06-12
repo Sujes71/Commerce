@@ -13,7 +13,10 @@ public class PriceParameterValidator {
     }
 
     try {
-      Integer.parseInt(brandId.trim());
+      int parsedBrandId = Integer.parseInt(brandId.trim());
+      if (parsedBrandId <= 0) {
+        throw new IllegalArgumentException("brandId must be a positive integer");
+      }
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("brandId must be a valid integer");
     }
@@ -23,7 +26,19 @@ public class PriceParameterValidator {
     }
 
     try {
-      Integer.parseInt(productId.trim());
+      int parsedProductId = Integer.parseInt(productId.trim());
+      if (parsedProductId <= 0) {
+        throw new IllegalArgumentException("productId must be a positive integer");
+      }
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("productId must be a valid integer");
+    }
+
+    try {
+      int parsedProductId = Integer.parseInt(productId.trim());
+      if (parsedProductId <= 0) {
+        throw new IllegalArgumentException("productId must be a positive integer");
+      }
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("productId must be a valid integer");
     }

@@ -2,9 +2,9 @@ package es.sujes71.api.price.domain.core;
 
 import es.sujes71.api.price.domain.model.Price;
 import es.sujes71.api.price.domain.model.PriceFilter;
-import es.sujes71.api.price.domain.model.exceptions.PriceNotFoundException;
 import es.sujes71.api.price.domain.ports.inbound.GetPriceByPropertiesUseCase;
 import es.sujes71.api.price.domain.ports.outbound.PricePersistencePort;
+import es.sujes71.api.price.infrastructure.exceptions.PriceNotFoundException;
 import es.sujes71.api.price.infrastructure.repository.h2.entity.PriceEntity;
 import java.util.Comparator;
 import java.util.List;
