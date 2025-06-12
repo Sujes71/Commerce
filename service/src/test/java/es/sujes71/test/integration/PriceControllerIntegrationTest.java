@@ -1,4 +1,4 @@
-package es.sujes71.test.unit;
+package es.sujes71.test.integration;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
